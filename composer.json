@@ -6,6 +6,10 @@
         "php": ">=5.3.9",
         "symfony/symfony": ">=2.6"
     },
+    "target-dir": "Eheuje/PushoverBundle",
+    "autoload": {
+        "psr-0": { "Eheuje\\PushoverBundle": "" }
+    },
     "license": "GLP-3.0",
     "authors": [
         {

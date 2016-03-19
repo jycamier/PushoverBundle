@@ -1,0 +1,3 @@
+eheuje_pushover_homepage:
+    path:     /
+    defaults: { _controller: EheujePushoverBundle:Default:index }

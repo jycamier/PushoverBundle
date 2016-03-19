@@ -1,0 +1,15 @@
+parameters:
+    eheuje_pushover.pusher.class: Eheuje\PushoverBundle\Service\Pushover
+    eheuje_pushover.command_listener.class: Eheuje\PushoverBundle\Listener\PushoverCommandListener
+
+services:
+    eheuje_pushover.pusher:
+        class: %eheuje_pushover.pusher.class%
+
+    eheuje_pushover.command_listener:
+        class: %eheuje_pushover.command_listener.class%
+        arguments: [@eheuje_pushover.pusher, @debug.stopwatch]
+        tags:
+            - { name: kernel.event_listener, event: console.command, method: onCommandConsoleEvents }
+            - { name: kernel.event_listener, event: console.exception, method: onExceptionConsoleEvents }
+            - { name: kernel.event_listener, event: console.terminate, method: onTerminateConsoleEvents }

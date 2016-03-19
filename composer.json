@@ -1,0 +1,16 @@
+{
+    "name": "eheuje/pushover-bundle",
+    "description": "Provide some tools to use Pushover in a symfony 2 project",
+    "type": "library",
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/symfony": ">=2.6"
+    },
+    "license": "GLP-3.0",
+    "authors": [
+        {
+            "name": "Jean-Yves CAMIER",
+            "email": "jycamier@clever-age.com"
+        }
+    ]
+}

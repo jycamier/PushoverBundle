@@ -69,23 +69,27 @@ $this->get('eheuje_pushover.pusher')
      ->push();
 ```
 
-## PushoverCommandInterface ##
+## PushoverCommand ##
 
 [Further information about the Console Component](http://symfony.com/doc/current/components/console/introduction.html)
 
-When you create huge commands, it takes a lot of time to execute them. If you don't want to wait behind your computer for the commands to terminate, just add the interface **PushoverCommandInterface** on your commands.
+When you create huge commands, it takes a lot of time to execute them. If you don't want to wait behind your computer for the commands to terminate, you can create your command as an inheritance of **PushoverCommand**.
 
 ```php
-use Eheuje\PushoverBundle\Command\PushoverCommandInterface;
+use Eheuje\PushoverBundle\Command\PushoverCommand;
 use Symfony\Component\Console\Command\Command;
 
-class GreetCommand extends Command implements PushoverCommandInterface
+class GreetCommand extends PushoverCommand
 {
 // ... some code goes here
 }
 ```
+Then, call the command with the option **--with-pushover**.
+```
+$ php app/console foo:bar "Hello World" --with-pushover
+```
 
-When the commands are terminated, you'll be notified if :
+When the command is terminated, you'll be notified if :
 - the command is terminated with a with a awaiting exit code ;
 - the command is terminated with an Exception.
 

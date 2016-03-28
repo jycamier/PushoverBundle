@@ -3,6 +3,7 @@
 
 namespace Eheuje\PushoverBundle\Listener;
 
+use Eheuje\PushoverBundle\Command\PushoverCommand;
 use Eheuje\PushoverBundle\Service\Pushover;
 use Symfony\Component\Stopwatch\Stopwatch;
 

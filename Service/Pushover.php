@@ -54,6 +54,7 @@ class Pushover
             CURLOPT_URL => "https://api.pushover.net/1/messages.json",
             CURLOPT_POSTFIELDS => $this->options,
             CURLOPT_SAFE_UPLOAD => true,
+            CURLOPT_RETURNTRANSFER => true,
         ]);
         curl_exec($ch);
         curl_close($ch);

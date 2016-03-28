@@ -2,9 +2,11 @@
 
 namespace Eheuje\PushoverBundle\Listener;
 
+use Eheuje\PushoverBundle\Command\PushoverCommand;
 use Eheuje\PushoverBundle\Command\PushoverCommandInterface;
 use Eheuje\PushoverBundle\Service\Pushover;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\Console\Event\ConsoleExceptionEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 
@@ -16,7 +18,7 @@ class PushoverCommandListener extends PushoverListener
     public function onCommandConsoleEvents(ConsoleCommandEvent $event)
     {
         $command = $event->getCommand();
-        if ($command instanceof PushoverCommandInterface) {
+        if ($this->isWithPushover($event)) {
             $this->stopwatch->start($event->getCommand()->getName());
             $this
                 ->pushover
@@ -30,7 +32,7 @@ class PushoverCommandListener extends PushoverListener
     public function onExceptionConsoleEvents(ConsoleExceptionEvent $event)
     {
         $command = $event->getCommand();
-        if ($command instanceof PushoverCommandInterface) {
+        if ($this->isWithPushover($event)) {
             $stopwatchEvent = $this->stopwatch->stop($event->getCommand()->getName());
             $this
                 ->pushover
@@ -46,7 +48,7 @@ class PushoverCommandListener extends PushoverListener
     public function onTerminateConsoleEvents(ConsoleTerminateEvent $event) 
     {
         $command = $event->getCommand();
-        if ($command instanceof PushoverCommandInterface && $this->stopwatch->isStarted($event->getCommand()->getName())) {
+        if ($this->isWithPushover($event) && $this->stopwatch->isStarted($event->getCommand()->getName())) {
             $stopwatchEvent = $this->stopwatch->stop($event->getCommand()->getName());
             $this
                 ->pushover
@@ -54,5 +56,20 @@ class PushoverCommandListener extends PushoverListener
                 ->setStopwatchEvent($stopwatchEvent)
                 ->push();
         }
+    }
+
+    /**
+     * @param ConsoleEvent $event
+     * @return bool
+     */
+    protected function isWithPushover(ConsoleEvent $event)
+    {
+        $command = $event->getCommand();
+        return $command instanceof PushoverCommandInterface
+            || (
+                $command instanceof PushoverCommand
+                && $event->getInput()->getOption(PushoverCommand::PUSHOVER_OPTION)
+            )
+        ;
     }
 }

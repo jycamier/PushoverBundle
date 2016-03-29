@@ -17,7 +17,7 @@ Pushover is a simple notification provider for Android, iPhone, iPad, and Deskto
 - Then add this bundle in your composer.json
 
 ```
-$ composer require eheuje/pushover-bundle:last
+$ composer require eheuje/pushover-bundle
 ```
 - Enable the bundle in your appKernel.php
 - Configure the following parameters in your config.yml with your own values (**user_key**, **api_key** and **user_email** are provided by Pushover once you've create your account and the specific application)

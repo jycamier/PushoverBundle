@@ -8,7 +8,7 @@ services:
 
     eheuje_pushover.command_listener:
         class: %eheuje_pushover.command_listener.class%
-        arguments: [@eheuje_pushover.pusher, @debug.stopwatch]
+        arguments: ["@eheuje_pushover.pusher", "@debug.stopwatch"]
         tags:
             - { name: kernel.event_listener, event: console.command, method: onCommandConsoleEvents }
             - { name: kernel.event_listener, event: console.exception, method: onExceptionConsoleEvents }
